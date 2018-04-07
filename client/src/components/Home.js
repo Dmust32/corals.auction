@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
-
-export default class Home extends Component {
+import spsPic from '../assets/mainSPSpic.jpg'
+class Home extends Component {
     render(){
         return (
             <div className='dash-main-container'>
                 <div className="coral-pics" >
+                    <img src={spsPic}/>
                 </div>
                 <div className="subtext">
                     <div className="rules">
@@ -17,4 +18,4 @@ export default class Home extends Component {
     }
 }
 
-// export default Home
+ export default Home

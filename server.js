@@ -7,6 +7,10 @@ const Auth0Strategy = require('passport-auth0')
 const passport= require('passport')
 const isAuthenticated= require('./middlewares/isAuthenticated')
 
+const auctionController = require('./controllers/Auctions_Controller')
+const bidsController = require('./controllers/Bids_Controller')
+const dashController = require('./controllers/Dashboard_controller')
+
 require('dotenv').config();
 
 const port = 5050
@@ -19,7 +23,7 @@ app.use( session({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
     resave:false 
-    
+
 }))
 
 app.use(passport.initialize());
@@ -38,13 +42,13 @@ passport.use(
         clientID: process.env.AUTH_CLIENT_ID,
         clientSecret: process.env.AUTH_CLIENT_SECRET,
         callbackURL: process.env.AUTH_CALLBACK,
-        scope:  'email profile id'
+        scope:  'openid profile email'
         
 
     },
     function(accessToken, refreshToken, extraParams, profile, done){
         const db= app.get('db');
-        db.get_user_by_fb_id({ email: profile.emails[0].value }).then(results => {
+        db.get_user_by_fb_id({ fb_id: profile.id }).then(results => {
             let user = results[0];
     
             if (user) {
@@ -88,9 +92,22 @@ passport.deserializeUser((user, done) => {
     if (req.isAuthenticated()) {
       return res.send(req.user);
     } else {
-      return res.status(404).send("user not authenticated");
+      return res.status(404).send("Please Sign In!");
     }
   });
+
+// DASHBOARD ENDPOINTS
+app.get('/api/my_auctions', isAuthenticated, dashController.getAuctionsByUserId)
+app.get('/api/auctions/watchlist', dashController.getUserWatchlist )
+
+// AUCTION ENDPOINTS
+app.get('/api/auctions', isAuthenticated, auctionController.getAllAuctions)
+app.post('/api/auctions',isAuthenticated, auctionController.createAuction )
+app.post('/api/auctions/watchlist', isAuthenticated, auctionController.addToWatchlist)
+
+// BID ENDPOINTS
+app.post('/api/bid', isAuthenticated, bidsController.createBid)
+
 
 
 app.listen( port, () => console.log('listening on port', port))

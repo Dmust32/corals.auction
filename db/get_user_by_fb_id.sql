@@ -1,3 +1,3 @@
 SELECT *
 FROM users
-WHERE email = ${email} 
+WHERE fb_id = ${fb_id} 
