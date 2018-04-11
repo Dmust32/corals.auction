@@ -3,7 +3,10 @@ import reduxPromiseMiddleware from 'redux-promise-middleware';
 import auctionReducer from './auctions_reducer'
 import dashboardReducer from './dashboard_reducer'
 
-const reducer = combineReducers({auctionReducer, dashboardReducer})
+const reducer = combineReducers({
+    auctions: auctionReducer, 
+    dashboard: dashboardReducer
+})
 
 export default createStore(
     reducer,

@@ -84,7 +84,7 @@ passport.deserializeUser((user, done) => {
     "/auth/callback",
     passport.authenticate("auth0", {
       successRedirect: "http://localhost:3000",
-      failureRedirect: "http://localhost:3000"
+      failureRedirect: "http://localhost:5050/auth"
     })
   );
 
@@ -98,7 +98,7 @@ passport.deserializeUser((user, done) => {
 
 // DASHBOARD ENDPOINTS
 app.get('/api/my_auctions', isAuthenticated, dashController.getAuctionsByUserId)
-app.get('/api/auctions/watchlist', dashController.getUserWatchlist )
+app.get('/api/auctions/watchlist', isAuthenticated, dashController.getUserWatchlist )
 
 // AUCTION ENDPOINTS
 app.get('/api/auctions', isAuthenticated, auctionController.getAllAuctions)

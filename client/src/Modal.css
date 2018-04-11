@@ -1,0 +1,32 @@
+.auction-modal {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.auction-modal-container {
+    position: absolute;
+    height: 500px;
+    width: 600px;
+    background-Color: white;
+
+    border-radius: 10px
+} 
+
+.auction-modal-container img{
+    height: 200px;
+    width: 250px;
+
+}
+
+.auction-modal-data-container{
+    display: flex;
+    flex-direction: row;
+}

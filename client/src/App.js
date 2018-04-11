@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Nav from './components/Nav'
 import router from './routes'
+import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 
 class App extends Component {
   render() {
@@ -15,5 +17,8 @@ class App extends Component {
     );
   }
 }
+function mapStateToProps(state){
+  return state
+}
 
-export default App;
+export default withRouter(connect(mapStateToProps)(App));

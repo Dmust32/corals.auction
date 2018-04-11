@@ -1,11 +1,14 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import logo from '../assets/coral logo.png'
 
 class Nav extends Component {
     render(){
         return(
             <div className= "nav-container">
-                <h3>LOGO HERE</h3>
+                <div className="logo-container">
+                    <img src={logo} alt="logo"/><h3>REEF-AUCTIONS</h3>
+                </div>
                 <div className="pages-container">
                     <Link to="/">
                         <h3>Home</h3>
