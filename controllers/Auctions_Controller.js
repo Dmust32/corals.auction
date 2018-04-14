@@ -3,7 +3,6 @@ module.exports={
         const dbInstance = req.app.get('db');
         
         dbInstance.get_all_auctions().then(auctions=>{
-            console.log('you are here', auctions)
             return res.status(200).send(auctions)
         }).catch(err=> res.send(err))
     },

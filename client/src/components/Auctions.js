@@ -2,11 +2,13 @@ import React, {Component} from 'react'
 import Modal from './Modal'
 import {connect} from 'react-redux'
 import {getAllAuctions} from '../redux/auctions_reducer'
+import {postBid} from '../redux/auctions_reducer'
 
 class Auctions extends Component {
     state = {
         auctionDetail: {},
-        showModal: false
+        showModal: false,
+        bid_amount: 0
 
     }
 
@@ -14,10 +16,17 @@ class Auctions extends Component {
         this.props.getAllAuctions()
     }
 
+    updateBidAmount = (amount) => {
+        this.setState({bid_amount: amount})
+        console.log(this.state.bid_amount)
+    }
+
     render(){
         return(
             <div className="dash-container">
-                <h3>Auctions</h3>
+                <div className="sub-nav">
+                    <h3>All Auctions</h3>
+                </div>
                 <div className='watchlist-container'>
                 {this.props.postedAuctions ? this.props.postedAuctions.map((auction, index)=>{
                     const {coral_name, coral_img_url} = auction;
@@ -30,8 +39,12 @@ class Auctions extends Component {
                 }): null}
                 {this.state.showModal ? (
                     <Modal
+                        updateBidAmount={this.updateBidAmount}
+                        postBid = {this.props.postBid}
+                        bid_amount = {this.state.bid_amount}
                         auction={this.state.auctionDetail}
-                        onClose={() => this.setState({ showModal: false, auctionDetail: {}})}
+                        onClose={() => this.setState({ showModal: false, auctionDetail: {}, bid_amount: 0})}
+                        
                     /> ) : null }
                </div>
             </div>
@@ -46,4 +59,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps, {getAllAuctions}) (Auctions)
+export default connect(mapStateToProps, {getAllAuctions, postBid}) (Auctions)   

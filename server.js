@@ -6,6 +6,7 @@ const session= require('express-session')
 const Auth0Strategy = require('passport-auth0')
 const passport= require('passport')
 const isAuthenticated= require('./middlewares/isAuthenticated')
+// const aws = require('aws-sdk')
 
 const auctionController = require('./controllers/Auctions_Controller')
 const bidsController = require('./controllers/Bids_Controller')
@@ -18,6 +19,8 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use( cors());
+
+// SESSION & PASSPORT SETUP
 
 app.use( session({
     secret: process.env.SESSION_SECRET,
@@ -95,6 +98,43 @@ passport.deserializeUser((user, done) => {
       return res.status(404).send("Please Sign In!");
     }
   });
+
+// AWS SETUP
+// aws.config.update({
+//   accessKeyId: AWS_ACCESS_KEY,
+//   secretAccessKey: AWS_SECRET_KEY
+// });
+
+
+// var aws = require('aws-sdk');
+
+// aws.config.update({
+//     accessKeyId: AWS_ACCESS_KEY,
+//     secretAccessKey: AWS_SECRET_KEY
+// });
+
+// exports = module.exports = {
+//     sign: function(filename, filetype) {
+//         var s3 = new aws.S3();
+
+//         var params = {
+//             Bucket: SOME_BUCKET,
+//             Key: filename,
+//             Expires: 60,
+//             ContentType: filetype
+//         };
+
+//         s3.getSignedUrl(‘putObject’, params, function(err, data) {
+//             if (err) {
+//                 console.log(err);
+//                 return err;
+//             } else {
+//                 return data;
+//             }
+//         });
+//     }
+// };
+
 
 // DASHBOARD ENDPOINTS
 app.get('/api/my_auctions', isAuthenticated, dashController.getAuctionsByUserId)

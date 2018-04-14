@@ -30,6 +30,7 @@ export function getMyWatchlist(){
     return {
         type: GET_MY_WATCHLIST,
         payload: axios.get('/api/auctions/watchlist').then(res => {
+
             return res.data
         })
     }
@@ -39,6 +40,7 @@ export function getMyAuctions(){
     return{
         type: GET_MY_AUCTIONS,
         payload: axios.get('/api/my_auctions').then(res =>{
+            console.log('myAuctions', res.data)
             return res.data
         })
     }

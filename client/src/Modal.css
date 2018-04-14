@@ -13,8 +13,8 @@
 
 .auction-modal-container {
     position: absolute;
-    height: 500px;
-    width: 600px;
+    height: 600px;
+    width: 800px;
     background-Color: white;
 
     border-radius: 10px

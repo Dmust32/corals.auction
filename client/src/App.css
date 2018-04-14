@@ -100,7 +100,8 @@
   flex-direction: row;
   height: 80vh;
   width: 80vw;
-  background-color: darkred
+  background-color: darkred;
+  
 }
 
 .auction-container{
@@ -111,7 +112,8 @@
   width: 275px;
   margin: 20px;
   background-color: dimgrey;
-  border-radius: 5px
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .auction-thumbnail{
@@ -124,16 +126,30 @@
 .sub-nav{
   display: flex;
   align-content: center;
+  align-items: center;
+  width: 80vw;
   margin-top: 80px;
-  margin-right: 600px
+  background-color: darkkhaki
  
 }
 
 .sub-nav h2{
   font-family: 'Acme', sans-serif;
   color: white;
-  margin: 20px
+  margin: 20px;
+  cursor: pointer
 
+}
+.sub-nav h3{
+  font-family: 'Acme', sans-serif;
+  margin: 20px;
+  font-size: 24px;
+  color: white;
+  cursor: pointer
+}
+
+.new-auction{
+  margin-left: 516px
 }
 
 
