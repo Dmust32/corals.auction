@@ -139,6 +139,7 @@ passport.deserializeUser((user, done) => {
 // DASHBOARD ENDPOINTS
 app.get('/api/my_auctions', isAuthenticated, dashController.getAuctionsByUserId)
 app.get('/api/auctions/watchlist', isAuthenticated, dashController.getUserWatchlist )
+app.delete('/api/auctions/watchlist/:id', isAuthenticated, dashController.deleteFromWatchlist)
 
 // AUCTION ENDPOINTS
 app.get('/api/auctions', isAuthenticated, auctionController.getAllAuctions)
@@ -147,6 +148,7 @@ app.post('/api/auctions/watchlist', isAuthenticated, auctionController.addToWatc
 
 // BID ENDPOINTS
 app.post('/api/bid', isAuthenticated, bidsController.createBid)
+app.post('/api/auctions/bid', isAuthenticated, bidsController.updateCurrentBid)
 
 
 

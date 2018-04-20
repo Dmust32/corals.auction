@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getMyWatchlist, getMyAuctions} from '../redux/dashboard_reducer'
+import {getMyWatchlist, getMyAuctions, deleteFromWatchlist} from '../redux/dashboard_reducer'
+import {updateCurrentBid} from '../redux/auctions_reducer'
 import Modal from './Modal'
 import NewAuctionModal from './NewAuctionModal'
+import axios from 'axios'
 
 
 
@@ -13,13 +15,24 @@ class Dashboard extends Component {
         showModal: false,
         showNewAuctionModal: false,
         showMyWatchlist: true,
-        showMyAuctions: false
+        showMyAuctions: false,
+        
 
     }
     
     componentDidMount = ( )=> {
         this.props.getMyWatchlist();
         this.props.getMyAuctions();
+        // axios.get('/auth/me').then(res=>{
+        //     if(res.user){
+        //         console.log('hitting if', this.state.isLoggedIn)
+        //         this.setState({isLoggedIn: true})
+        //     } else{
+        //         console.log('hitting else', this.state.isLoggedIn)
+        //         this.setState({isLoggedIn: false})
+        //         }
+        //     }
+        // )
     }
 
    
@@ -38,21 +51,23 @@ class Dashboard extends Component {
                 </div>
                 <div className='watchlist-container'>
                 {this.state.showMyWatchlist ? this.props.myWatchlist.map((auction, index)=>{
-                    const {coral_name, coral_img_url} = auction;
+                    const {coral_name, coral_img_url, current_bid} = auction;
                     return(
                         <div onClick={() => this.setState({ auctionDetail: auction, showModal: true})} className='auction-container' key={index}>
-                            <h3 className='auction-thumbnail'>{coral_img_url}</h3>
+                            <div className='auction-thumbnail'>{coral_img_url}</div>
                             <h3>Name:{coral_name}</h3>
+                            <h3>Current Bid: ${current_bid}</h3>
                         </div>
                     )
                 }): null}
 
                 {this.state.showMyAuctions ? this.props.myAuctions.map((auction, index)=>{
-                    const {coral_name, coral_img_url} = auction;
+                    const {coral_name, coral_img_url, current_bid} = auction;
                     return(
                         <div onClick={() => this.setState({ auctionDetail: auction, showModal: true})} className='auction-container' key={index}>
                             <h3 className='auction-thumbnail'>{coral_img_url}</h3>
                             <h3>Name:{coral_name}</h3>
+                            <h3>Current Bid: ${current_bid}</h3>
                         </div>
                     )
                 }): null}
@@ -61,6 +76,10 @@ class Dashboard extends Component {
                     <Modal
                         auction={this.state.auctionDetail}
                         onClose={() => this.setState({ showModal: false, auctionDetail: {}})}
+                        hideFooter={true}
+                        showMyWatchlist={this.state.showMyWatchlist}
+                        deleteFromWatchlist = {this.props.deleteFromWatchlist}
+                        updateCurrentBid = {this.props.updateCurrentBid}
                     /> ) : null }
 
                 {this.state.showNewAuctionModal ? (
@@ -84,6 +103,10 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps, {getMyAuctions, getMyWatchlist}) (Dashboard) 
+export default connect(mapStateToProps, 
+    {getMyAuctions, 
+        getMyWatchlist, 
+        deleteFromWatchlist, 
+        updateCurrentBid}) (Dashboard) 
 
 

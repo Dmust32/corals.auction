@@ -7,11 +7,11 @@
   top: 0;
 
 
-  height: 70px;
+  height: 60px;
   width: 100vw;
   color: white;
   font-family: 'Acme', sans-serif;
-  /* background-color: grey */
+  background-color: grey
  
 }
 
@@ -22,7 +22,7 @@
 .nav-container img{
   height: 40px;
   margin-left: 10px;
-  margin-top: 11px
+  margin-top: 14px
 }
 
 .logo-container{
@@ -46,6 +46,7 @@
 
 .pages-container a{
   text-decoration: none;
+  cursor: pointer;
 }
 
 
@@ -92,15 +93,16 @@
   align-items: center;
   height: 100vh;
   background-size: cover;
-  background-color: #A9E8DC;
+  
  
 }
 .watchlist-container{
   display: flex;
   flex-direction: row;
-  height: 80vh;
+  align-items: center;
+  flex-wrap: wrap;
   width: 80vw;
-  background-color: darkred;
+  /* background-color: darkred; */
   
 }
 
@@ -111,9 +113,13 @@
   height: 300px;
   width: 275px;
   margin: 20px;
+  margin-left: 40px;
   background-color: dimgrey;
   border-radius: 5px;
   cursor: pointer;
+}
+.auction-container h3{
+  margin: 5px
 }
 
 .auction-thumbnail{
@@ -128,6 +134,8 @@
   align-content: center;
   align-items: center;
   width: 80vw;
+  min-height: 50px;
+  max-height: 50px;
   margin-top: 80px;
   background-color: darkkhaki
  
