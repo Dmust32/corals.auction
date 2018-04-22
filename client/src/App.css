@@ -129,6 +129,12 @@
   margin-bottom: 0
 }
 
+.countdown{
+  display: flex;
+  align-content: space-around;
+  align-items: center
+}
+
 .sub-nav{
   display: flex;
   align-content: center;

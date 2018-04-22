@@ -60,6 +60,7 @@ export function postNewAuction({coral_name,
     starting_bid,
     bid_increment,
     current_bid,
+    coral_img_url
 }){
 return {
     type: POST_NEW_AUCTION,
@@ -70,6 +71,7 @@ return {
         starting_bid,
         bid_increment,
         current_bid,
+        coral_img_url
     }).then(res=>{
         return res.data
     })}

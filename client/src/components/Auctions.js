@@ -3,6 +3,7 @@ import Modal from './Modal'
 import {connect} from 'react-redux'
 import {getAllAuctions} from '../redux/auctions_reducer'
 import {postBid, addToWatchlist, updateCurrentBid} from '../redux/auctions_reducer'
+import AuctionCountDown from './AuctionCountDown'
 
 class Auctions extends Component {
     state = {
@@ -30,12 +31,13 @@ class Auctions extends Component {
                 </div>
                 <div className='watchlist-container'>
                 {this.props.postedAuctions ? this.props.postedAuctions.map((auction, index)=>{
-                    const {coral_name, coral_img_url, current_bid} = auction;
+                    const {coral_name, coral_img_url, current_bid, auction_end} = auction;
                     return(
                         <div onClick={() => this.setState({ auctionDetail: auction, showModal: true})} className='auction-container' key={index}>
                             <h3 className='auction-thumbnail'>{coral_img_url}</h3>
                             <h3>Name: {coral_name}</h3>
                             <h3>Current Bid: ${current_bid}</h3>
+                            <AuctionCountDown auction_end = {auction_end}/>
                         </div>
                     )
                 }): null}

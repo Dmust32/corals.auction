@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import '../Modal.css'
 import {connect} from 'react-redux'
 import {postNewAuction} from '../redux/dashboard_reducer'
+import DragAndDropPic from './DragAndDropPic'
 
 
 class NewAuctionModal extends Component  {
@@ -15,6 +16,7 @@ class NewAuctionModal extends Component  {
             starting_bid: '',
             bid_increment: '',
             current_bid: '',
+            coral_img_url: ''
 
         }
     }
@@ -41,6 +43,11 @@ class NewAuctionModal extends Component  {
         this.setState({current_bid: bid})
     }
 
+    setImageUrl=(url)=>{
+        this.setState({coral_img_url: url})
+        console.log('hitting the set image', this.state.coral_img_url)
+    }
+
     render(){
        const{ coral_name,
             coral_type,
@@ -48,12 +55,13 @@ class NewAuctionModal extends Component  {
             auction_end,
             starting_bid,
             bid_increment,
-            current_bid} = this.state
+            current_bid,
+            coral_img_url} = this.state
     return (
         <div className='auction-modal'>
             <div onClick={this.props.onClose} style={{ position: 'fixed', width: '100%', height: '100vh', backgroundColor: 'rgba(0, 0, 0, .6)'}} />
             <div className='auction-modal-container'>
-                {/* <img src={auction.coral_img_url} alt='coral-thumbnail-modal'/> */}
+                <DragAndDropPic setImageUrl = {this.setImageUrl}/>
                 <div className='auction-modal-data-container'>
                     <div className='coral-name-desc'>
                         <h3>Name:<input onChange={(e)=>{this.updateCoralName(e.target.value)}} required/></h3>
@@ -72,7 +80,8 @@ class NewAuctionModal extends Component  {
                         auction_end,
                         starting_bid,
                         bid_increment,
-                        current_bid}).then(this.props.onClose)}}>Post</button>
+                        current_bid, 
+                        coral_img_url}).then(this.props.onClose)}}>Post</button>
                     <button>Cancel</button>
                 </div>
             </div>

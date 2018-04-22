@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+
 
 class AuctionCountDown extends Component {
     constructor(props) {
@@ -77,30 +78,30 @@ class AuctionCountDown extends Component {
         const countDown = this.state;
     
         return (
-          <div className="Countdown">
-                  <strong>{this.addLeadingZeros(countDown.days)}</strong>
-                  <span>{countDown.days === 1 ? 'Day' : 'Days'}</span>
+          <div className="countdown">
+                <strong>{this.addLeadingZeros(countDown.days)}</strong>
+                <h5>{countDown.days === 1 ? 'Day' : 'Days'}</h5>
 
                 <strong>{this.addLeadingZeros(countDown.hours)}</strong>
-                <span>Hours</span>
+                <h5>Hours</h5>
 
                 <strong>{this.addLeadingZeros(countDown.min)}</strong>
-                <span>Min</span>
+                <h5>Min</h5>
     
                 <strong>{this.addLeadingZeros(countDown.sec)}</strong>
-                <span>Sec</span>
+                <h5>Sec</h5>
           </div>
         );
       }
     }
     
-    Countdown.propTypes = {
-      date: PropTypes.string.isRequired
-    };
+    // Countdown.propTypes = {
+    //   date: PropTypes.string.isRequired
+    // };
     
-    Countdown.defaultProps = {
-      date: new Date()
-    };
+    // Countdown.defaultProps = {
+    //   date: new Date()
+    // };
 
 
 export default AuctionCountDown
