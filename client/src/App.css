@@ -123,10 +123,11 @@
 }
 
 .auction-thumbnail{
-  height: 270px;
+  height: 200px;
   width: 240px;
-  background-color: darkkhaki;
-  margin-bottom: 0
+  margin-bottom: 0;
+  margin-top: 8px;
+  border-radius: 2px;
 }
 
 .countdown{

@@ -87,4 +87,5 @@ export function deleteFromWatchlist(id){
     }
 }
 
+
 export default reducer

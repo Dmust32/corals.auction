@@ -1,4 +1,5 @@
 import axios from 'axios'
+import socket from '../Utils/Socket'
 
 const initialState = {
     postedAuctions: [],
@@ -48,6 +49,11 @@ export function postBid({bid_amount, auction_id}){
         type: POST_BID,
         payload: axios.post('api/bid', {bid_amount, auction_id}).then(res=>{
             return res.data
+        }).then(  () =>{
+            console.log("hitting reducer send bid")
+            socket.emit('SEND_BID', {
+                bid_amount: bid_amount
+            })
         })
     }
 }

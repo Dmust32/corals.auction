@@ -17,16 +17,88 @@
     width: 800px;
     background-Color: white;
 
-    border-radius: 10px
+    border-radius: 10px;
 } 
 
+.auction-modal-container h3{
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    margin: 10px
+}
+
+.image-bid-info-container{
+    display: flex;
+    align-content: center;
+    align-items: center
+}
+
+.bid-info-container{
+    display: flex;
+    flex-direction: column;
+    margin-left: 70px;
+}
+
+.coral-name-desc{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 30px  ;
+    margin-right: 120px
+}
+
+.place-bid-container{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    border-left: 1px solid gray;
+    padding-left: 90px
+}
+
+.place-bid-container input{
+    font-size: 16px;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px
+}
+
 .auction-modal-container img{
-    height: 200px;
-    width: 250px;
+    height: 300px;
+    width: 350px;
+    margin: 30px;
+    border-radius: 2px
 
 }
 
 .auction-modal-data-container{
     display: flex;
     flex-direction: row;
+}
+
+/* BUTTON STYLES */
+
+.add-to-watchlist-button{
+    height: 30px;
+    width: 200px;
+    font-family: 'Acme', sans-serif;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: bisque;
+    margin-left: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.bid-button{
+    height: 30px;
+    width: 200px;
+    font-family: 'Acme', sans-serif;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: bisque;
+    margin-left: 5px;
+    margin-top: 20px;
+    cursor: pointer;
 }

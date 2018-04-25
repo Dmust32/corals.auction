@@ -7,6 +7,9 @@ const Auth0Strategy = require('passport-auth0')
 const passport= require('passport')
 const isAuthenticated= require('./middlewares/isAuthenticated')
 const AWS = require('./controllers/AWSController')
+const socket = require('socket.io')
+
+
 
 
 
@@ -19,10 +22,10 @@ require('dotenv').config();
 const port = 5050
 const app = express();
 
+
+
 app.use(bodyParser.json());
 app.use( cors());
-
-// SOCKETS SETUP
 
 
 // SESSION & PASSPORT SETUP
@@ -122,5 +125,19 @@ app.post('/api/auctions/bid', isAuthenticated, bidsController.updateCurrentBid)
 app.post('/api/aws', isAuthenticated, AWS.sign)
 
 
+ const server = app.listen( port, () => console.log('listening on port', port))
 
-app.listen( port, () => console.log('listening on port', port))
+//  SOCKET SETUP
+
+io = socket(server)
+
+io.on('connection', (socket) => {
+  console.log(socket.id);
+
+  socket.on('SEND_BID', function(data){
+    console.log('hitting the server send bid')
+    io.emit('RECEIVE_BID', data);
+})
+
+
+});

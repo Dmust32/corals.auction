@@ -5,28 +5,36 @@ import {updateCurrentBid} from '../redux/auctions_reducer'
 import Modal from './Modal'
 import NewAuctionModal from './NewAuctionModal'
 import AuctionCountDown from './AuctionCountDown'
-
-
+import socket from '../Utils/Socket'
 
 
 class Dashboard extends Component {
-    state = {
-        auctionDetail: {},
-        showModal: false,
-        showNewAuctionModal: false,
-        showMyWatchlist: true,
-        showMyAuctions: false,
-        
+    constructor(props){
+        super(props);
 
+        this.state = {
+            auctionDetail: {},
+            showModal: false,
+            showNewAuctionModal: false,
+            showMyWatchlist: true,
+            showMyAuctions: false,
+            
+    
+        }
+
+        socket.on('RECEIVE_BID', ()=>{
+            console.log('received bid')
+            this.props.getMyWatchlist();
+            this.props.getMyAuctions()
+        });
     }
+    
+
     
     componentDidMount = ( )=> {
         this.props.getMyWatchlist();
         this.props.getMyAuctions();
     }
-
-   
-    
 
     render(){
         
@@ -44,7 +52,7 @@ class Dashboard extends Component {
                     const {coral_name, coral_img_url, current_bid, auction_end} = auction;
                     return(
                         <div onClick={() => this.setState({ auctionDetail: auction, showModal: true})} className='auction-container' key={index}>
-                            <div className='auction-thumbnail'>{coral_img_url}</div>
+                            <img src={coral_img_url} alt="coral img" className='auction-thumbnail' />
                             
                             <h3>Name:{coral_name}</h3>
                             <h3>Current Bid: ${current_bid}</h3>
@@ -57,7 +65,7 @@ class Dashboard extends Component {
                     const {coral_name, coral_img_url, current_bid, auction_end} = auction;
                     return(
                         <div onClick={() => this.setState({ auctionDetail: auction, showModal: true})} className='auction-container' key={index}>
-                            <h3 className='auction-thumbnail'>{coral_img_url}</h3>
+                            <img src={coral_img_url} alt="coral img" className='auction-thumbnail' />
                             <h3>Name:{coral_name}</h3>
                             <h3>Current Bid: ${current_bid}</h3>
                             <AuctionCountDown auction_end = {auction_end}/>

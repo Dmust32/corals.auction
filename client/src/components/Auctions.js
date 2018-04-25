@@ -4,14 +4,23 @@ import {connect} from 'react-redux'
 import {getAllAuctions} from '../redux/auctions_reducer'
 import {postBid, addToWatchlist, updateCurrentBid} from '../redux/auctions_reducer'
 import AuctionCountDown from './AuctionCountDown'
+import socket from '../Utils/Socket'
 
 class Auctions extends Component {
-    state = {
-        auctionDetail: {},
-        showModal: false,
-        bid_amount: 0
+    constructor(props){
+        super(props);
+        this.state= {
+            auctionDetail: {},
+            showModal: false,
+            bid_amount: 0
+    
+        }
 
+        socket.on('RECEIVE_BID', ()=>{
+            this.props.getAllAuctions()
+        });
     }
+   
 
     componentDidMount = ( )=> {
         this.props.getAllAuctions()
@@ -34,7 +43,7 @@ class Auctions extends Component {
                     const {coral_name, coral_img_url, current_bid, auction_end} = auction;
                     return(
                         <div onClick={() => this.setState({ auctionDetail: auction, showModal: true})} className='auction-container' key={index}>
-                            <h3 className='auction-thumbnail'>{coral_img_url}</h3>
+                            <img src={coral_img_url} alt="coral img" className='auction-thumbnail' />
                             <h3>Name: {coral_name}</h3>
                             <h3>Current Bid: ${current_bid}</h3>
                             <AuctionCountDown auction_end = {auction_end}/>

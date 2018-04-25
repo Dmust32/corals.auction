@@ -3,9 +3,9 @@ import Dropzone from 'react-dropzone'
 import axios from 'axios'
 
 class DragAndDropPic extends Component {
-    constructor(props){
-        super(props);
-    }
+    // constructor(props){
+    //     super(props);
+    // }
 
   _onDrop = (files) => {
     var file = files[0];
@@ -27,7 +27,6 @@ class DragAndDropPic extends Component {
     })
     .then(res => {
         this.props.setImageUrl(res.config.url)
-        console.log(1111111, res.config.url)
     })
     .catch(function (err) {
       console.log(2, err);

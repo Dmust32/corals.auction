@@ -44,8 +44,9 @@ class NewAuctionModal extends Component  {
     }
 
     setImageUrl=(url)=>{
-        this.setState({coral_img_url: url})
-        console.log('hitting the set image', this.state.coral_img_url)
+        var newUrl= url.substring(0, url.indexOf('?')) 
+        this.setState({coral_img_url: newUrl})
+        console.log('hitting the set image', newUrl)
     }
 
     render(){
@@ -61,7 +62,9 @@ class NewAuctionModal extends Component  {
         <div className='auction-modal'>
             <div onClick={this.props.onClose} style={{ position: 'fixed', width: '100%', height: '100vh', backgroundColor: 'rgba(0, 0, 0, .6)'}} />
             <div className='auction-modal-container'>
-                <DragAndDropPic setImageUrl = {this.setImageUrl}/>
+                {!this.state.coral_img_url?
+                <DragAndDropPic setImageUrl = {this.setImageUrl}/> : 
+                <img src={this.state.coral_img_url} alt='coral img'/>}
                 <div className='auction-modal-data-container'>
                     <div className='coral-name-desc'>
                         <h3>Name:<input onChange={(e)=>{this.updateCoralName(e.target.value)}} required/></h3>
@@ -81,8 +84,8 @@ class NewAuctionModal extends Component  {
                         starting_bid,
                         bid_increment,
                         current_bid, 
-                        coral_img_url}).then(this.props.onClose)}}>Post</button>
-                    <button>Cancel</button>
+                        coral_img_url}).then(this.setState({coral_img_url: ''})).then(this.props.onClose)}}>Post</button>
+                    <button onClick={this.props.onClose}>Cancel</button>
                 </div>
             </div>
         </div>
