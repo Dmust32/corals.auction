@@ -18,6 +18,10 @@ const ADD_TO_WATCHLIST_FULFILLED = "ADD_TO_WATCHLIST_FULFILLED"
 const UPDATE_CURRENT_BID = "UPDATE_CURRENT_BID"
 const UPDATE_CURRENT_BID_FULFILLED = "UPDATE_CURRENT_BID_FULFILLED"
 
+const END_AUCTION = "END_AUCTION"
+const END_AUCTION_FULFILLED = "END_AUCTION_FULFILLED"
+
+
 
 function reducer(state= initialState, action){
     
@@ -30,6 +34,9 @@ function reducer(state= initialState, action){
             return state
         case UPDATE_CURRENT_BID_FULFILLED:
             return Object.assign({}, state, {postedAuctions: action.payload})
+        case END_AUCTION_FULFILLED:
+            return Object.assign({}, state, {postedAuctions: action.payload.auctionsObj.data.auctions})
+        
         default:
             return state
     }
@@ -50,7 +57,6 @@ export function postBid({bid_amount, auction_id}){
         payload: axios.post('api/bid', {bid_amount, auction_id}).then(res=>{
             return res.data
         }).then(  () =>{
-            console.log("hitting reducer send bid")
             socket.emit('SEND_BID', {
                 bid_amount: bid_amount
             })
@@ -72,6 +78,23 @@ export function updateCurrentBid({bid_amount, auction_id}){
         type: UPDATE_CURRENT_BID,
         payload: axios.post('api/auctions/bid', {bid_amount, auction_id}).then(res => {
             return res.data
+        })
+    }
+}
+
+export function endAuction(auction_id){
+    return {
+        type: END_AUCTION,
+        payload: axios.put('/api/auctions', {auction_id})
+        .then(auctionsObj=>{
+            return axios.get(`/api/auctions/endAuction/${auction_id}`).then(auctionWinnerObj=>{
+                console.log('auctionWinnerObj', auctionWinnerObj)
+                var winner_auctions= {
+                    auctionsObj: auctionsObj,
+                    auctionWinnerObj: auctionWinnerObj
+                }
+                return winner_auctions
+            })
         })
     }
 }

@@ -8,7 +8,11 @@ const passport= require('passport')
 const isAuthenticated= require('./middlewares/isAuthenticated')
 const AWS = require('./controllers/AWSController')
 const socket = require('socket.io')
+const moment = require('moment')
+moment().format();
+const fs = require('fs')
 
+const cron = require('node-cron')
 
 
 
@@ -27,6 +31,24 @@ const app = express();
 app.use(bodyParser.json());
 app.use( cors());
 
+// CRON SETUP
+
+cron.schedule('* * * * *', function(){
+  var currentTime = moment().subtract(6, 'hours')
+  var streamWrite = 'Cron success ending auctions!' + currentTime + ', ';
+  var stream = fs.createWriteStream('./serverLogs.txt', {flags:'a'}); 
+  stream.write(streamWrite);
+  stream.end()
+     
+  auctionController.cronCheckAuctionEnd(app, stream);
+});
+
+cron.schedule('* * 24 * *', function(){
+  fs.unlink('./serverLogs.txt', function (err) {
+    if (err) throw err;
+    console.log('File deleted!');
+  });
+});
 
 // SESSION & PASSPORT SETUP
 
@@ -89,21 +111,26 @@ passport.deserializeUser((user, done) => {
     return done(null, user)
   });
 
-
+  // AUTH ENDPOINTS
   app.get("/auth", passport.authenticate("auth0"));
   app.get(
     "/auth/callback",
     passport.authenticate("auth0", {
-      successRedirect: "http://localhost:3000",
-      failureRedirect: "http://localhost:5050/auth"
+      successRedirect: "http://localhost:3000/MyDash",
+      failureRedirect: "http://localhost:3000"
     })
   );
+
+  app.get('/auth/logout', function(req, res){
+    req.logout();
+    res.redirect('http://localhost:3000');
+  });
 
   app.get("/auth/me", (req, res) => {
     if (req.isAuthenticated()) {
       return res.send(req.user);
     } else {
-      return res.status(404).send("Please Sign In!");
+       return res.send(false);
     }
   });
 
@@ -115,7 +142,10 @@ app.delete('/api/auctions/watchlist/:id', isAuthenticated, dashController.delete
 // AUCTION ENDPOINTS
 app.get('/api/auctions', isAuthenticated, auctionController.getAllAuctions)
 app.post('/api/auctions',isAuthenticated, auctionController.createAuction )
+app.put('/api/auctions', isAuthenticated, auctionController.endAuction)
 app.post('/api/auctions/watchlist', isAuthenticated, auctionController.addToWatchlist)
+app.get('/api/auctions/endAuction/:auctionId', auctionController.getAuctionWinner)
+
 
 // BID ENDPOINTS
 app.post('/api/bid', isAuthenticated, bidsController.createBid)
@@ -135,7 +165,6 @@ io.on('connection', (socket) => {
   console.log(socket.id);
 
   socket.on('SEND_BID', function(data){
-    console.log('hitting the server send bid')
     io.emit('RECEIVE_BID', data);
 })
 

@@ -3,30 +3,24 @@ import {Link} from 'react-router-dom'
 import logo from '../assets/coral logo.png'
 
 class Nav extends Component {
-    state ={
-        login: false
-    }
     render(){
+        
         return(
             <div className= "nav-container">
                 <div className="logo-container">
                     <img src={logo} alt="logo"/><h3>REEF-AUCTIONS</h3>
                 </div>
                 <div className="pages-container">
-                    <Link to="/">
+                    {/* <Link to="/">
                         <h3>Home</h3>
-                    </Link>
+                    </Link> */}
                     <Link to= "/MyDash">
                         <h3>MyDash</h3>
                     </Link>
                     <Link to="/Auctions">
                         <h3>Auctions</h3>
                     </Link>
-                    {this.state.login ?
-                        <a><h3>Logout</h3></a> :
-                        <a onClick={() => {
-                            window.location = "http://localhost:5050/auth";
-                        }} ><h3 >Login</h3></a>}
+                    <a href="http://localhost:5050/auth/logout"><h3>Logout</h3></a> 
                 </div>
             </div>
         )

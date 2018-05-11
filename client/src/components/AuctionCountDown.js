@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {endAuction} from '../redux/auctions_reducer'
 
 
 class AuctionCountDown extends Component {
@@ -29,7 +31,10 @@ class AuctionCountDown extends Component {
         let diff = (Date.parse(new Date(endDate)) - Date.parse(new Date())) / 1000;
     
         // clear countdown when date is reached
-        if (diff <= 0) return false;
+        if (diff <= 0){
+          this.props.endAuction(this.props.auction_id);
+          return false
+        };
     
         const timeLeft = {
           years: 0,
@@ -103,5 +108,4 @@ class AuctionCountDown extends Component {
     //   date: new Date()
     // };
 
-
-export default AuctionCountDown
+export default connect(null, {endAuction})(AuctionCountDown)

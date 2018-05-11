@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+
 const initialState = {
     myAuctions: [],
     myWatchlist: [],
@@ -17,6 +18,12 @@ const POST_NEW_AUCTION_FULFILLED = "POST_NEW_AUCTION_FULFILLED"
 const DELETE_FROM_WATCHLIST = "DELETE_FROM_WATCHLIST"
 const DELETE_FROM_WATCHLIST_FULFILLED = "DELETE_FROM_WATCHLIST_FULFILLED"
 
+const END_AUCTION_FULFILLED = "END_AUCTION_FULFILLED"
+
+
+const LOGIN_CHECK = "LOGIN_CHECK"
+const LOGIN_CHECK_FULFILLED = "LOGIN_CHECK_FULFILLED"
+
 
 function reducer(state= initialState, action){
     switch(action.type){
@@ -28,7 +35,10 @@ function reducer(state= initialState, action){
             return Object.assign({}, state, {myAuctions: action.payload})
         case DELETE_FROM_WATCHLIST_FULFILLED:
             return Object.assign({}, state, {myWatchlist: action.payload})
-        
+        case LOGIN_CHECK_FULFILLED:
+            return Object.assign({}, state, {isLoggedIn: action.payload})
+        case END_AUCTION_FULFILLED:
+            return Object.assign({}, state, { myAuctions: action.payload.auctionsObj.data.userAuctions, myWatchlist: action.payload.auctionsObj.data.userWatchlist})
         default:
             return state
     }
@@ -84,6 +94,15 @@ export function deleteFromWatchlist(id){
             return res.data
         }
         )
+    }
+}
+
+export function loginCheck(){
+    return{
+        type: LOGIN_CHECK,
+        payload: axios.get('/auth/me').then(res=>{
+            return res.data
+        })
     }
 }
 

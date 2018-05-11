@@ -24,6 +24,7 @@ module.exports = {
         const dbInstance = req.app.get('db');
         const {id: owner_id} = req.user;
         const {id} = req.params
+        console.log('id', id)
         dbInstance.delete_from_watchlist({owner_id, id}).then(auctions=>{
             return res.status(200).send(auctions)
         }).catch(err=>{

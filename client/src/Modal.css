@@ -12,38 +12,52 @@
 }
 
 .auction-modal-container {
+    display: flex;
+
     position: absolute;
     height: 600px;
     width: 800px;
-    background-Color: white;
+    background-Color: #F2F3F5;
 
     border-radius: 10px;
 } 
 
 .auction-modal-container h3{
-    font-size: 18px;
-    font-family: 'Montserrat', sans-serif;
+    font-size: 18px; 
+    font-family: 'Roboto', sans-serif;
     margin: 10px
 }
 
-.image-bid-info-container{
+.image-desc-container{
     display: flex;
+    flex-direction: column;
     align-content: center;
-    align-items: center
+    justify-content: flex-start;
+    
+    /* align-content: center;
+    align-items: center */
 }
 
 .bid-info-container{
     display: flex;
     flex-direction: column;
-    margin-left: 70px;
+    align-content: center;
+    align-items: center ;
+    /* margin-left: 70px; */
+    margin-top: 40px
 }
 
 .coral-name-desc{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-left: 30px  ;
-    margin-right: 120px
+    margin-left: 20px;
+    /* margin-right: 120px */
+}
+
+#modal-desc{
+    max-width: 350px;
+    margin-left: 10px
 }
 
 .place-bid-container{
@@ -51,8 +65,7 @@
     flex-direction: column;
     align-content: center;
     align-items: center;
-    border-left: 1px solid gray;
-    padding-left: 90px
+    margin-top: 80px
 }
 
 .place-bid-container input{
@@ -72,7 +85,16 @@
 
 .auction-modal-data-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    margin-left: 50px
+}
+
+.coral-type{
+    display: flex;
+    align-content: center;
+    align-items: center
 }
 
 /* BUTTON STYLES */
@@ -84,7 +106,7 @@
     font-size: 16px;
     border: none;
     border-radius: 5px;
-    background-color: bisque;
+    background-color: #8EE181;
     margin-left: 5px;
     margin-top: 20px;
     cursor: pointer;
@@ -97,7 +119,20 @@
     font-size: 16px;
     border: none;
     border-radius: 5px;
-    background-color: bisque;
+    background-color: #8EE181;
+    margin-left: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.delete-from-watchlist{
+    height: 30px;
+    width: 200px;
+    font-family: 'Acme', sans-serif;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #D7443F;
     margin-left: 5px;
     margin-top: 20px;
     cursor: pointer;
