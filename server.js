@@ -43,7 +43,7 @@ cron.schedule('* * * * *', function(){
   auctionController.cronCheckAuctionEnd(app, stream);
 });
 
-cron.schedule('* * 24 * *', function(){
+cron.schedule('* * */24 * *', function(){
   fs.unlink('./serverLogs.txt', function (err) {
     if (err) throw err;
     console.log('File deleted!');

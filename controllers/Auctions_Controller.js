@@ -75,9 +75,7 @@ module.exports={
     cronCheckAuctionEnd: (app, stream) => {
         const dbInstance = app.get('db');
         var currentTime = moment().subtract(6, 'hours')
-        console.log('currentTime', currentTime)
         dbInstance.cron_check_auction_end({currentTime}).then(auctions=>{
-            
         }).catch(err => {
             var errString = "cron check error" + err
             stream.write(errString)})

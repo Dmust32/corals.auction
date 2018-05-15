@@ -3,6 +3,9 @@ import {Link} from 'react-router-dom'
 import logo from '../assets/coral logo.png'
 
 class Nav extends Component {
+    state = {
+        showMenu: false
+    }
     render(){
         
         return(
@@ -22,6 +25,31 @@ class Nav extends Component {
                     </Link>
                     <a href="http://localhost:5050/auth/logout"><h3>Logout</h3></a> 
                 </div>
+                {/* <div className='phone-pages-container'>
+                    <div onClick = {()=>{
+                        if(!this.state.showMenu){
+                            this.setState({showMenu: true})
+                        }else{
+                            this.setState({showMenu: false})
+                        }
+                        }}>
+
+                        <i class="fas fa-bars fa-2x"></i>
+                    </div>
+               
+                    
+                </div>
+                <div className='hamburger-menu'>
+                    {this.state.showMenu? 
+                        <ul>
+                            <li><Link to= "/MyDash">MyDash</Link></li>
+                            <li><Link to= "/Auctions">Auctions</Link></li>
+                            <li><a href="http://localhost:5050/auth/logout">Logout</a></li>
+                
+                        </ul>
+                        : null
+                    }
+                </div> */}
             </div>
         )
     }

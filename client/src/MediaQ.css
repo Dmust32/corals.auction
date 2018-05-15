@@ -1,12 +1,21 @@
-/* Tablet 641px*/
-
-@media screen and (max-width: 641px) {
-    
+/* DISPLAY NONE ITEMS */
+.phone-pages-container{
+    display: none
 }
 
 
 
-/* Phone  320px*/
+
+
+/* TABLET 641px*/
+
+@media screen and (max-width: 641px) {
+
+}
+
+
+
+/* PHONE  320px*/
 
 @media screen and (max-width: 640px) {
     
