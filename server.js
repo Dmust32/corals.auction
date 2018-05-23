@@ -13,6 +13,7 @@ moment().format();
 const fs = require('fs')
 
 const cron = require('node-cron')
+const path = require('path')
 
 
 
@@ -116,14 +117,14 @@ passport.deserializeUser((user, done) => {
   app.get(
     "/auth/callback",
     passport.authenticate("auth0", {
-      successRedirect: "http://localhost:3000/MyDash",
-      failureRedirect: "http://localhost:3000"
+      successRedirect: "/MyDash",
+      failureRedirect: "/"
     })
   );
 
   app.get('/auth/logout', function(req, res){
     req.logout();
-    res.redirect('http://localhost:3000');
+    res.redirect('/');
   });
 
   app.get("/auth/me", (req, res) => {
@@ -133,6 +134,9 @@ passport.deserializeUser((user, done) => {
        return res.send(false);
     }
   });
+
+  app.use( express.static( `${__dirname}/client/build` ) );
+ 
 
 // DASHBOARD ENDPOINTS
 app.get('/api/my_auctions', isAuthenticated, dashController.getAuctionsByUserId)
@@ -153,6 +157,10 @@ app.post('/api/auctions/bid', isAuthenticated, bidsController.updateCurrentBid)
 
 // AWS ENDPOINT
 app.post('/api/aws', isAuthenticated, AWS.sign)
+
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
+});
 
 
  const server = app.listen( port, () => console.log('listening on port', port))

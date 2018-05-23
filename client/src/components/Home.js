@@ -9,7 +9,7 @@ class Home extends Component {
                      <div className='login-home'>
                         <h1>Welcome to REEF-AUCTIONS!</h1>
                         <h3>Please Login</h3>
-                        <a href= "http://localhost:5050/auth"><h1>LOGIN</h1></a>
+                        <a href= {process.env.REACT_APP_AUTH_LOGIN}><h1>LOGIN</h1></a>
                      </div>
                 </div>
                 <div className="subtext">

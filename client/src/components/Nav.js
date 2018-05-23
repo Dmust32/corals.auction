@@ -23,7 +23,7 @@ class Nav extends Component {
                     <Link to="/Auctions">
                         <h3>Auctions</h3>
                     </Link>
-                    <a href="http://localhost:5050/auth/logout"><h3>Logout</h3></a> 
+                    <a href={process.env.REACT_APP_AUTH_LOGOUT}><h3>Logout</h3></a> 
                 </div>
                 {/* <div className='phone-pages-container'>
                     <div onClick = {()=>{
